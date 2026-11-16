@@ -175,8 +175,11 @@
   /* ---------- everything together, strongest first ---------- */
   window.findAll = function (lines) {
     var seen = new Map(), out = [];
+    var LEAD = /^(?:should|would|could|may|might|will|shall|must|can|the|a|an|and|or|but|if|that|this|whereas|please|kindly|dear|hi|hello|between|with|from|to|by|for|of|our|your|their|its|we|i|has|have|had|is|are|was|were|does|did|let|also|then|so|as|at|in|on)\s+/i;
     function push(d) {
-      var term = canon(d.term).replace(/[.,;:]+$/, ''); if (term.length < 3) return;
+      var term = canon(d.term).replace(/[.,;:]+$/, '');
+      if (/^(?:Company|Person)$/.test(d.cat)) { var t0; do { t0 = term; term = term.replace(LEAD, ''); } while (term !== t0 && term.split(' ').length > 1); }
+      if (term.length < 3) return;
       var k = term.toLowerCase(), e = seen.get(k);
       if (e) { if (d.on !== false) e.on = true; return; }
       e = { cat: d.cat, term: term, on: d.on !== false }; seen.set(k, e); out.push(e);
@@ -264,4 +267,139 @@
     window.DETECT.push({ cat: 'Address', re: /\b(?:GPO|G\.P\.O\.?)[ \t]*\d{5}\b/g });
     window.DETECT.push({ cat: 'Website', re: /\bhttps?:\/\/[^\s<>()\[\]"'”]+[^\s<>()\[\]"'”.,;:!?]/g });
   }
+})();
+
+/* ---------- one label per person, and frequent "maybe" words first (version 1.7) ---------- */
+(function () {
+  'use strict';
+  if (!window.findAll || !window.state) return;
+  var LINKS = {}, COUNTS = {};
+  function words(s) { return canon(s).toLowerCase().replace(/[.,]/g, '').split(' ').filter(Boolean); }
+  function countIn(term, lines) {
+    try { var eng = makeEngine([{ term: term, ph: 'x' }], 'redact'), n = 0; lines.forEach(function (l) { n += eng.find(l).length; }); return n; }
+    catch (e) { return 0; }
+  }
+  // Which longer name, if exactly one, does this short form belong to?
+  function linkFor(short, fulls) {
+    var s = words(short); if (!s.length) return null;
+    var hits = [];
+    fulls.forEach(function (f) {
+      var w = words(f.term); if (w.length <= s.length) return;
+      var role = null;
+      for (var i = 0; i + s.length <= w.length; i++) {
+        if (s.every(function (x, j) { return w[i + j] === x; })) { role = s.length === 1 ? (i === 0 ? 'first' : i === w.length - 1 ? 'last' : 'part') : 'part'; break; }
+      }
+      if (!role && s.length === 1 && s[0].length >= 4 && w[0].length > s[0].length && w[0].indexOf(s[0]) === 0) role = 'nick';
+      if (role) hits.push({ full: f.term, role: role, cat: f.cat });
+    });
+    return hits.length === 1 ? hits[0] : null;
+  }
+  var base = window.findAll;
+  window.findAll = function (lines) {
+    var out = base(lines);
+    LINKS = {}; COUNTS = {};
+    var FULLCATS = /^(Person|Company|Name)$/;
+    var fulls = out.filter(function (d) { return FULLCATS.test(d.cat) && words(d.term).length >= 2; });
+    // names already in the table count as possible "full names" too
+    state.rows.forEach(function (r) { if (r.term && FULLCATS.test(r.cat) && words(r.term).length >= 2) fulls.push({ term: r.term, cat: r.cat }); });
+    out.forEach(function (d) {
+      var k = canon(d.term).toLowerCase();
+      if (FULLCATS.test(d.cat)) { var l = linkFor(d.term, fulls); if (l) LINKS[k] = l; }
+      if (!d.on) COUNTS[k] = countIn(d.term, lines);
+    });
+    return out;
+  };
+  function label(parent, role, cat) {
+    var m = /^\[(.*)\]$/.exec(canon(parent.ph)), core = m ? m[1] : canon(parent.ph);
+    var word = role === 'first' ? (/^Person$/i.test(cat) ? 'first name' : 'short') : role === 'last' ? (/^Person$/i.test(cat) ? 'surname' : 'short') : 'short';
+    var ph = '[' + core + ', ' + word + ']', n = 1;
+    while (state.rows.some(function (r) { return canon(r.ph).toLowerCase() === ph.toLowerCase(); })) { n++; ph = '[' + core + ', ' + word + ' ' + n + ']'; }
+    return ph;
+  }
+  function byTerm(t) { var k = canon(t).toLowerCase(); return state.rows.find(function (r) { return canon(r.term).toLowerCase() === k; }); }
+
+  // Remember where the list ended before "Find likely identifiers" ran, so only new rows are rearranged.
+  var before = 0;
+  document.addEventListener('click', function (e) { if (e.target && e.target.id === 'r-suggest') before = state.rows.length; }, true);
+  $('r-suggest').addEventListener('click', function () {
+    var fresh = state.rows.slice(before); if (!fresh.length) return;
+    // people who made tracked changes or comments are always hidden, even if they were first offered as a "maybe"
+    if (state.src && state.src.info && document.querySelector('input[name=rmode]:checked').value === 'file') {
+      Object.keys(state.src.info.authors).forEach(function (a) {
+        var r = byTerm(a); if (r && !r.on) { r.on = true; if (r.cat === 'Name') { r.cat = 'Person'; r.ph = '[Person 999]'; } }
+      });
+    }
+    var old = state.rows.slice(0, before), linked = 0;
+    // link short forms to their full name, keeping them under it
+    fresh.forEach(function (r) {
+      var l = LINKS[canon(r.term).toLowerCase()]; if (!l) return;
+      var p = byTerm(l.full); if (!p || p === r) return;
+      r.parent = p; r.role = l.role; r.ph = label(p, l.role, p.cat); linked++;
+    });
+    // close the gaps left in the numbering by the short forms, so the numbers still count people
+    var maxOld = {};
+    old.forEach(function (r) { var m = /^\[(.+) (\d+)\]$/.exec(canon(r.ph)); if (m) maxOld[m[1].toLowerCase()] = Math.max(maxOld[m[1].toLowerCase()] || 0, +m[2]); });
+    var next = {};
+    fresh.forEach(function (r) {
+      if (r.parent) return;
+      var m = /^\[(.+) (\d+)\]$/.exec(canon(r.ph)); if (!m) return;
+      var c = m[1].toLowerCase(); next[c] = (next[c] || maxOld[c] || 0) + 1; r.ph = '[' + m[1] + ' ' + next[c] + ']';
+    });
+    fresh.forEach(function (r) { if (r.parent) { r.ph = ''; r.ph = label(r.parent, r.role, r.parent.cat); } });
+    fresh.forEach(function (r) { r.freq = (!r.on && COUNTS[canon(r.term).toLowerCase()]) || 0; });
+    var top = fresh.filter(function (r) { return !r.on && !r.parent && r.freq >= 3; }).sort(function (a, b) { return b.freq - a.freq; });
+    var rest = fresh.filter(function (r) { return top.indexOf(r) < 0 && !r.parent; });
+    var ordered = old.concat(top), placed = {};
+    function place(r) {
+      ordered.push(r);
+      fresh.forEach(function (c) { if (c.parent === r && !placed[fresh.indexOf(c)]) { placed[fresh.indexOf(c)] = 1; ordered.push(c); } });
+    }
+    top.forEach(function (r) { fresh.forEach(function (c) { if (c.parent === r) { placed[fresh.indexOf(c)] = 1; ordered.splice(ordered.indexOf(r) + 1, 0, c); } }); });
+    rest.forEach(place);
+    old.forEach(function (r) { fresh.forEach(function (c) { if (c.parent === r && !placed[fresh.indexOf(c)]) { placed[fresh.indexOf(c)] = 1; ordered.splice(ordered.indexOf(r) + 1, 0, c); } }); });
+    fresh.forEach(function (c, i) { if (!placed[i] && ordered.indexOf(c) < 0) ordered.push(c); });
+    state.rows.length = 0; ordered.forEach(function (r) { state.rows.push(r); });
+    renderRows();
+    var msg = $('r-msg'), n = fresh.length, maybe = fresh.filter(function (r) { return !r.on; }).length;
+    var parts = ['Added ' + n + ' row(s). Untick any you do not need, and add anything that is missing.'];
+    if (top.length) parts.push('The ' + top.length + ' row(s) at the top are unticked but appear several times. Check them first: they are often the other side of a deal, a place or a project name.');
+    if (maybe) parts.push(maybe + ' row(s) in all are unticked: capitalized words that may be names or places. Tick the ones that need hiding.');
+    if (linked) parts.push(linked + ' short form(s), such as a first name, share the number of the full name they belong to, so a reader can tell it is the same person. Click "Separate" on a row if Sitiri linked it wrongly.');
+    note(msg, 'ok', parts.join(' '));
+  });
+
+  // the table: show links and how often a "maybe" appears
+  var baseRender = window.renderRows;
+  window.renderRows = function () {
+    baseRender();
+    var trs = $('r-table').querySelectorAll('tbody tr');
+    state.rows.forEach(function (r, i) {
+      var tr = trs[i]; if (!tr) return;
+      if (r.parent && state.rows.indexOf(r.parent) >= 0) {
+        var cell = tr.children[2], d = document.createElement('div'); d.className = 'linkline';
+        d.appendChild(document.createTextNode('Same as ' + canon(r.parent.term) + ' '));
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'linkbtn'; b.dataset.i = i; b.dataset.f = 'unlink'; b.textContent = 'Separate';
+        d.appendChild(b); cell.appendChild(d);
+      } else if (r.parent) { delete r.parent; delete r.role; r.ph = nextPh(r.cat); tr.children[2].querySelector('input').value = r.ph; }
+      if (!r.on && r.freq >= 3) { tr.classList.add('freq'); var n = tr.children[3]; n.textContent = 'appears ' + r.freq + ' times'; }
+    });
+  };
+  $('r-table').addEventListener('click', function (e) {
+    var t = e.target; if (t.dataset.f !== 'unlink') return;
+    var r = state.rows[+t.dataset.i]; if (!r) return;
+    delete r.parent; delete r.role; r.ph = nextPh(r.cat); renderRows();
+  });
+  $('r-table').addEventListener('change', function (e) {
+    var t = e.target; if (t.dataset.f !== 'ph') return;
+    var p = state.rows[+t.dataset.i]; if (!p) return;
+    var touched = false;
+    state.rows.forEach(function (c) { if (c.parent === p) { c.ph = ''; c.ph = label(p, c.role, p.cat); touched = true; } });
+    if (touched) renderRows();
+  });
+  // deleting a row removes its links
+  $('r-table').addEventListener('click', function (e) {
+    if (e.target.dataset.f !== 'del') return;
+    state.rows.forEach(function (c) { if (c.parent && state.rows.indexOf(c.parent) < 0) { delete c.parent; delete c.role; c.ph = nextPh(c.cat); } });
+    renderRows();
+  });
 })();

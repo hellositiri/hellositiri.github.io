@@ -47,3 +47,7 @@ a{color:inherit}
 .foot-links p{margin:0}
 
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+.linkline{margin-top:4px;font-size:14px;color:var(--soft)}
+.linkbtn{margin-left:6px;padding:2px 8px;border:1px solid var(--rule);border-radius:4px;background:transparent;color:var(--text);font:inherit;font-size:14px;cursor:pointer}
+tr.freq td{background:var(--warn-bg)}
+tr.freq td.n{color:var(--warn-fg);font-weight:700;white-space:nowrap}
