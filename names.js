@@ -187,7 +187,9 @@
     loadHouse().forEach(function (h) { if (occurs(h.term, lines)) push({ cat: h.cat || 'Term', term: h.term }); });
     detect(lines).forEach(push);
     strong(lines).forEach(function (d) { if (occurs(d.term, lines)) push(d); });
-    domains(lines).forEach(function (d) { if (occurs(d.term, lines)) push(d); });
+    // a website or company taken from an email address is only worth a row if it also appears outside email addresses
+    var noMail = lines.map(function (l) { return String(l).replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+/g, ' '); });
+    domains(lines).forEach(function (d) { if (occurs(d.term, noMail)) push(d); });
     if (window.SITIRI_WORDS) unusual(lines).forEach(push);
     // a "maybe" that only repeats part of a ticked row adds nothing
     var sure = out.filter(function (d) { return d.on; });
