@@ -71,6 +71,7 @@ ol.how{padding-left:24px}ol.how li{margin-bottom:8px}
 .c-diff li{margin-bottom:3px}
 .c-warn{margin:0 0 8px;font-size:15px}
 </style>
+<link rel="stylesheet" href="tool-look.css">
 </head>
 <body>
 <div class="dots" aria-hidden="true"></div>
@@ -78,7 +79,7 @@ ol.how{padding-left:24px}ol.how li{margin-bottom:8px}
 <div class="wrap top-in">
 <h1 class="mark"><a href="index.html" aria-label="Sitiri home">Sitiri</a></h1>
 <p class="promise">Runs on this computer only. Nothing you load is sent anywhere.</p>
-<span class="ver">Version 1.7</span>
+<span class="ver">Version 1.8</span>
 </div>
 <div class="teeth-up" aria-hidden="true"></div>
 </header>
@@ -99,7 +100,7 @@ ol.how{padding-left:24px}ol.how li{margin-bottom:8px}
       <label><input type="radio" name="rmode" value="text"> Pasted text</label>
     </div>
     <div id="r-file">
-      <input type="file" id="r-input" accept=".docx,.pdf,.png,.jpg,.jpeg">
+      <label class="drop"><svg class="drop-icon" viewBox="0 0 56 56" aria-hidden="true"><path d="M14 6h20l10 10v34H14z" fill="#FFFFFF" stroke="#13233A" stroke-width="2.5" stroke-linejoin="round"/><path d="M34 6v10h10" fill="none" stroke="#13233A" stroke-width="2.5" stroke-linejoin="round"/><rect x="19" y="23" width="20" height="6" fill="#13233A"/><rect x="19" y="33" width="14" height="6" fill="#F4B62A"/><rect x="19" y="43" width="18" height="3" fill="#9AA9AE"/></svg><input type="file" id="r-input" accept=".docx,.pdf,.png,.jpg,.jpeg"><span class="drop-main">Drop the document here, or <u>choose a file</u></span><span class="drop-sub">Word, PDF, a scan or a photo of a page</span></label>
       <div class="fileinfo" id="r-fileinfo"></div>
       <div id="c-panel" class="hide">
         <div id="c-status" class="note ok" role="status"></div>
@@ -174,7 +175,7 @@ ol.how{padding-left:24px}ol.how li{margin-bottom:8px}
       <label><input type="radio" name="smode" value="text"> Pasted text</label>
     </div>
     <div id="s-file">
-      <input type="file" id="s-input" accept=".docx">
+      <label class="drop"><svg class="drop-icon" viewBox="0 0 56 56" aria-hidden="true"><path d="M14 6h20l10 10v34H14z" fill="#FFFFFF" stroke="#13233A" stroke-width="2.5" stroke-linejoin="round"/><path d="M34 6v10h10" fill="none" stroke="#13233A" stroke-width="2.5" stroke-linejoin="round"/><rect x="19" y="23" width="20" height="6" fill="#13233A"/><rect x="19" y="33" width="14" height="6" fill="#F4B62A"/><rect x="19" y="43" width="18" height="3" fill="#9AA9AE"/></svg><input type="file" id="s-input" accept=".docx"><span class="drop-main">Drop the document here, or <u>choose a file</u></span><span class="drop-sub">The reviewed Word document (.docx)</span></label>
       <div class="fileinfo" id="s-fileinfo"></div>
     </div>
     <div id="s-text" class="hide">
@@ -817,5 +818,13 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 <script src="convert.js"></script>
 <script src="words.js"></script>
 <script src="names.js"></script>
+<script>
+(function(){document.querySelectorAll('.drop').forEach(function(z){var i=z.querySelector('input[type=file]');
+['dragenter','dragover'].forEach(function(t){z.addEventListener(t,function(e){e.preventDefault();z.classList.add('over');});});
+['dragleave','drop'].forEach(function(t){z.addEventListener(t,function(e){e.preventDefault();z.classList.remove('over');});});
+z.addEventListener('drop',function(e){if(!e.dataTransfer||!e.dataTransfer.files.length)return;try{i.files=e.dataTransfer.files;}catch(x){return;}i.dispatchEvent(new Event('change',{bubbles:true}));});
+i.addEventListener('change',function(){z.classList.toggle('has-file',!!i.files.length);var m=z.querySelector('.drop-main');if(i.files.length)m.innerHTML='';if(i.files.length){m.textContent=i.files[0].name;var u=document.createElement('u');u.textContent='Choose another file';var sp=z.querySelector('.drop-sub');sp.textContent='';sp.appendChild(u);}});});
+window.addEventListener('dragover',function(e){e.preventDefault();});window.addEventListener('drop',function(e){e.preventDefault();});})();
+</script>
 </body>
 </html>

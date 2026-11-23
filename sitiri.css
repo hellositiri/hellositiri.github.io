@@ -25,7 +25,7 @@
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--page);color:var(--text);font-family:var(--body);font-size:18px;line-height:1.55}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
+:focus-visible{outline:4px solid var(--saffron);outline-offset:3px;box-shadow:0 0 0 3px var(--ink)}
 .wrap{max-width:1160px;margin:0 auto;padding-left:24px;padding-right:24px}
 
 /* Kanga borders */
