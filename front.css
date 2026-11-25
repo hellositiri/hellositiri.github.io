@@ -141,7 +141,6 @@
 .contact{position:relative;overflow:hidden;padding:clamp(100px,11vw,150px) 0;background:var(--ink);color:#DCE3EA}
 .contact-photo{position:absolute;inset:0;border-radius:0;box-shadow:none;background:url("img/sunset.jpg") 2vw calc(250px - 49.4vw)/140vw auto no-repeat,var(--ink)}
 .contact::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,35,58,.97) 0%,rgba(19,35,58,.9) 38%,rgba(19,35,58,.35) 68%,rgba(19,35,58,.05) 100%)}
-.contact .wm-word{left:-1vw;bottom:-5vw;z-index:1;font-size:clamp(200px,24vw,380px);color:#F6F8F7;opacity:.05}
 .contact-in{position:relative;z-index:2;max-width:1240px}
 .contact h2{color:#F6F8F7;max-width:12em}
 .contact-in > p:not(.mail){margin-top:20px;max-width:34em;font-size:20px}

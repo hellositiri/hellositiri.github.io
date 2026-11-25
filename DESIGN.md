@@ -29,7 +29,7 @@ Saffron on ink is the redaction pair. Never saffron text on paper; use ochre.
 ## Kanga devices
 - Pindo dots (saffron on ink) along the top of the page and above the privacy section; kanga teeth above the message band and the footer.
 - The medallion rings: saffron over the hero, teal as a faint watermark behind "How it works".
-- Large faint italic words as watermarks: "siri" behind privacy, "sitiri" behind contact.
+- A large faint italic "siri" as a watermark behind privacy. The contact section has no watermark; the sunset carries it.
 - The message band: "Siri ya mtungi aijuaye kata" with its translation, on white, right under the hero.
 - Service cards are topped with four different kanga patterns.
 
