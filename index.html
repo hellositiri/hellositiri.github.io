@@ -69,23 +69,25 @@
     </div>
 
     <figure class="desk" aria-label="An invented lease with the names covered">
-      <article class="sheet">
-        <p class="sheet-title">Lease of commercial premises</p>
-        <p>THIS LEASE is made on 3rd March 2026 between <span class="term">Baraka Estates Limited<span class="band">[Company 1]</span></span> of <span class="term">P.O. Box 1234-00100<span class="band">[Address 1]</span></span>, Nairobi (the Lessor) and <span class="term">Amani Wanjiku<span class="band">[Person 1]</span></span> (the Lessee).</p>
-        <p>1. The Lessor leases the premises on <span class="term">L.R. No. 209/4567<span class="band">[Land Ref 1]</span></span> for six years.</p>
-        <p>2. Notices go to <span class="term">amani@example.co.ke<span class="band">[Email 1]</span></span>.</p>
-        <svg class="stamp" viewBox="0 0 160 160" aria-hidden="true">
-          <defs><path id="stamp-ring" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
-          <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
-          <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <text font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="15" fill="currentColor"><textPath href="#stamp-ring" textLength="352" lengthAdjust="spacing">PRIVATE AND CONFIDENTIAL *</textPath></text>
-          <text x="80" y="88" text-anchor="middle" font-family="Bodoni Moda, serif" font-style="italic" font-weight="600" font-size="24" fill="currentColor">2026</text>
-        </svg>
-      </article>
-      <figcaption class="desk-cap">
-        <span id="desk-state">What the reviewer receives</span>
-        <button type="button" class="toggle" id="demo-toggle" aria-pressed="true">Show the names</button>
-      </figcaption>
+      <div class="paper">
+        <div class="views" role="group" aria-label="Which copy to show">
+          <button type="button" class="view" id="view-covered" aria-pressed="true"><span class="view-swatch" aria-hidden="true"></span>Reviewer's copy</button>
+          <button type="button" class="view" id="view-original" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Your original</button>
+        </div>
+        <article class="sheet">
+          <p class="sheet-title">Lease of commercial premises</p>
+          <p>THIS LEASE is made on 3rd March 2026 between <span class="term">Baraka Estates Limited<span class="band">[Company 1]</span></span> of <span class="term">P.O. Box 1234-00100<span class="band">[Address 1]</span></span>, Nairobi (the Lessor) and <span class="term">Amani Wanjiku<span class="band">[Person 1]</span></span> (the Lessee).</p>
+          <p>1. The Lessor leases the premises on <span class="term">L.R. No. 209/4567<span class="band">[Land Ref 1]</span></span> for six years.</p>
+          <p>2. Notices go to <span class="term">amani@example.co.ke<span class="band">[Email 1]</span></span>.</p>
+          <svg class="stamp" viewBox="0 0 160 160" aria-hidden="true">
+            <defs><path id="stamp-ring" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+            <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <text font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="15" fill="currentColor"><textPath href="#stamp-ring" textLength="352" lengthAdjust="spacing">PRIVATE AND CONFIDENTIAL *</textPath></text>
+            <text x="80" y="88" text-anchor="middle" font-family="Bodoni Moda, serif" font-style="italic" font-weight="600" font-size="24" fill="currentColor">2026</text>
+          </svg>
+        </article>
+      </div>
     </figure>
   </div>
 </header>
@@ -248,16 +250,16 @@
 (function(){
   var root=document.documentElement;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var btn=document.getElementById('demo-toggle'),state=document.getElementById('desk-state');
+  var bc=document.getElementById('view-covered'),bo=document.getElementById('view-original');
   function set(covered){
     root.classList.toggle('is-open',!covered);
-    btn.textContent=covered?'Show the names':'Cover the names';
-    btn.setAttribute('aria-pressed',covered?'true':'false');
-    state.textContent=covered?'What the reviewer receives':'Your original';
+    bc.setAttribute('aria-pressed',covered?'true':'false');
+    bo.setAttribute('aria-pressed',covered?'false':'true');
   }
-  // The one moment: the names show briefly, then a saffron band covers each one in turn.
+  // The one moment: the original shows briefly, then a saffron band covers each name in turn.
   if(reduce){set(true);}else{set(false);setTimeout(function(){set(true);},1000);}
-  btn.addEventListener('click',function(){set(root.classList.contains('is-open'));});
+  bc.addEventListener('click',function(){set(true);});
+  bo.addEventListener('click',function(){set(false);});
   var cb=document.getElementById('copy-email'),cn=document.getElementById('copy-note');
   cb.addEventListener('click',function(){
     var addr='hellositiri@gmail.com';
