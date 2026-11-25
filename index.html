@@ -14,8 +14,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0C1624">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B4F4B">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icons/icon-64.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -24,21 +23,22 @@
 </head>
 <body class="front">
 
+<div class="dots" aria-hidden="true"></div>
+
 <header class="hero" id="top">
-  <div class="pindo" aria-hidden="true"></div>
-  <svg class="engraving" viewBox="0 0 800 800" aria-hidden="true">
-    <g fill="none" stroke="#C9A24E">
-      <circle cx="400" cy="400" r="392" stroke-width="1"/>
-      <circle cx="400" cy="400" r="362" stroke-width="6" stroke-dasharray="0.1 18" stroke-linecap="round"/>
-      <circle cx="400" cy="400" r="332" stroke-width=".8"/>
-      <circle cx="400" cy="400" r="252" stroke-width="30" stroke-opacity=".32" stroke-dasharray="1.5 12"/>
-      <circle cx="400" cy="400" r="172" stroke-width=".8"/>
-      <circle cx="400" cy="400" r="152" stroke-width="5" stroke-dasharray="0.1 14" stroke-linecap="round"/>
-      <circle cx="400" cy="400" r="96" stroke-width=".8" stroke-opacity=".6"/>
+  <div class="hero-photo" aria-hidden="true"></div>
+  <svg class="hero-mark" viewBox="0 0 600 600" aria-hidden="true">
+    <g fill="none" stroke="#F4B62A">
+      <circle cx="300" cy="300" r="292" stroke-width="2"/>
+      <circle cx="300" cy="300" r="266" stroke-width="9" stroke-dasharray="0.1 21" stroke-linecap="round"/>
+      <circle cx="300" cy="300" r="240" stroke-width="1"/>
+      <circle cx="300" cy="300" r="180" stroke-width="36" stroke-opacity=".45" stroke-dasharray="2 13"/>
+      <circle cx="300" cy="300" r="118" stroke-width="1.5"/>
+      <circle cx="300" cy="300" r="100" stroke-width="7" stroke-dasharray="0.1 16" stroke-linecap="round"/>
     </g>
   </svg>
 
-  <nav class="nav" aria-label="Main">
+  <nav class="nav wrap" aria-label="Main">
     <a class="wordmark" href="#top">Sitiri</a>
     <div class="nav-links">
       <a href="#how">How it works</a>
@@ -47,7 +47,7 @@
       <a class="nav-open" href="tool.html">Open Sitiri</a>
     </div>
     <details class="nav-menu">
-      <summary aria-label="Menu"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+      <summary aria-label="Menu"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary>
       <div class="nav-drop">
         <a href="#how">How it works</a>
         <a href="#privacy">Privacy</a>
@@ -57,128 +57,191 @@
     </details>
   </nav>
 
-  <div class="hero-in">
+  <div class="hero-in wrap">
     <div class="hero-copy">
       <h1>Share the document. <span class="nb">Keep the names.</span></h1>
       <p class="lead">Sitiri covers client names, addresses and ID numbers before a document goes for review, then puts them back with your key. It works on your own computer.</p>
       <div class="actions">
-        <a class="button brass" href="tool.html">Open Sitiri</a>
+        <a class="button saffron" href="tool.html">Open Sitiri</a>
         <a class="button ghost" href="#how">How it works</a>
       </div>
       <p class="note">Free. No account. Nothing is uploaded.</p>
     </div>
 
     <figure class="desk" aria-label="An invented lease with the names covered">
-      <div class="case">
-        <article class="sheet">
-          <p class="sheet-title">Lease of commercial premises</p>
-          <p>THIS LEASE is made on 3rd March 2026 between <span class="term">Baraka Estates Limited<span class="frost">[Company 1]</span></span> of <span class="term">P.O. Box 1234-00100<span class="frost">[Address 1]</span></span>, Nairobi (the Lessor) and <span class="term">Amani Wanjiku<span class="frost">[Person 1]</span></span> (the Lessee).</p>
-          <p>1. The Lessor leases the premises on <span class="term">L.R. No. 209/4567<span class="frost">[Land Ref 1]</span></span> for six years.</p>
-          <p>2. Notices go to <span class="term">amani@example.co.ke<span class="frost">[Email 1]</span></span>.</p>
-        </article>
-      </div>
-      <figcaption class="case-cap">
-        <span id="case-state">What the reviewer receives</span>
+      <article class="sheet">
+        <p class="sheet-title">Lease of commercial premises</p>
+        <p>THIS LEASE is made on 3rd March 2026 between <span class="term">Baraka Estates Limited<span class="band">[Company 1]</span></span> of <span class="term">P.O. Box 1234-00100<span class="band">[Address 1]</span></span>, Nairobi (the Lessor) and <span class="term">Amani Wanjiku<span class="band">[Person 1]</span></span> (the Lessee).</p>
+        <p>1. The Lessor leases the premises on <span class="term">L.R. No. 209/4567<span class="band">[Land Ref 1]</span></span> for six years.</p>
+        <p>2. Notices go to <span class="term">amani@example.co.ke<span class="band">[Email 1]</span></span>.</p>
+        <svg class="stamp" viewBox="0 0 160 160" aria-hidden="true">
+          <defs><path id="stamp-ring" d="M80,80 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+          <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="80" cy="80" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="15" fill="currentColor"><textPath href="#stamp-ring" textLength="352" lengthAdjust="spacing">PRIVATE AND CONFIDENTIAL *</textPath></text>
+          <text x="80" y="88" text-anchor="middle" font-family="Bodoni Moda, serif" font-style="italic" font-weight="600" font-size="24" fill="currentColor">2026</text>
+        </svg>
+      </article>
+      <figcaption class="desk-cap">
+        <span id="desk-state">What the reviewer receives</span>
         <button type="button" class="toggle" id="demo-toggle" aria-pressed="true">Show the names</button>
       </figcaption>
     </figure>
   </div>
-
-  <p class="jina"><span lang="sw">SIRI YA MTUNGI AIJUAYE KATA</span><span class="jina-en">The secret of the pot is known by the ladle.</span></p>
 </header>
+
+<div class="jina" role="note">
+  <p><span class="jina-sw" lang="sw">Siri ya mtungi aijuaye kata</span><span class="jina-en">The secret of the pot is known by the ladle.</span></p>
+</div>
 
 <main>
 
 <section class="how" id="how">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>The work travels. <span class="nb">The names stay with you.</span></h2>
-      <p>Sitiri swaps each name for a placeholder, so the person reviewing the document never sees who it is about.</p>
+  <svg class="watermark wm-rings" viewBox="0 0 600 600" aria-hidden="true">
+    <g fill="none" stroke="#0B4F4B">
+      <circle cx="300" cy="300" r="292" stroke-width="2"/>
+      <circle cx="300" cy="300" r="266" stroke-width="9" stroke-dasharray="0.1 21" stroke-linecap="round"/>
+      <circle cx="300" cy="300" r="180" stroke-width="36" stroke-dasharray="2 13"/>
+      <circle cx="300" cy="300" r="100" stroke-width="7" stroke-dasharray="0.1 16" stroke-linecap="round"/>
+    </g>
+  </svg>
+  <div class="wrap how-in">
+    <div class="how-photo photo photo-signing" role="img" aria-label="Hands signing a document at a desk">
+      <span class="photo-trim" aria-hidden="true"></span>
     </div>
-    <svg class="route" viewBox="0 0 1100 260" role="img" aria-labelledby="route-t">
-      <title id="route-t">The document leaves your computer with placeholders, goes to a reviewer and comes back. The key stays on your computer.</title>
-      <g fill="none" stroke="#C9A24E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M230 104 C 400 20, 640 20, 800 98" stroke-dasharray="1 9"/>
-        <path d="M800 168 C 640 250, 400 250, 230 172" stroke-dasharray="1 9"/>
-        <path d="M788 88 l14 12 l-18 4"/><path d="M243 182 l-14 -12 l18 -4"/>
-        <!-- laptop -->
-        <rect x="70" y="70" width="140" height="92" rx="6"/><path d="M56 176 h168 l-10 -14 H66 z"/>
-        <path d="M92 96 h56 M92 112 h90 M92 126 h70 M92 140 h80" stroke-opacity=".55"/>
-        <circle cx="196" cy="56" r="13"/><circle cx="192" cy="56" r="4.5"/><path d="M196.5 56 h10 M203 56 v4"/>
-        <!-- outgoing copy -->
-        <g transform="translate(458 30) rotate(-5)"><rect width="112" height="74" rx="2"/><rect x="12" y="14" width="52" height="12" rx="2" fill="#C9A24E" fill-opacity=".22"/><path d="M12 38 h86 M12 52 h40" stroke-opacity=".55"/><rect x="58" y="47" width="40" height="12" rx="2" fill="#C9A24E" fill-opacity=".22"/></g>
-        <!-- reviewer -->
-        <circle cx="880" cy="104" r="22"/><path d="M842 178 c6 -36 70 -36 76 0"/>
-        <path d="M934 76 h52 a8 8 0 0 1 8 8 v26 a8 8 0 0 1 -8 8 h-30 l-14 12 v-12 h-8 a8 8 0 0 1 -8 -8 v-26 a8 8 0 0 1 8 -8 z"/>
-        <path d="M948 96 h1 M960 96 h1 M972 96 h1" stroke-width="3"/>
-        <!-- returning copy -->
-        <g transform="translate(466 172) rotate(4)"><rect width="112" height="74" rx="2"/><rect x="12" y="14" width="52" height="12" rx="2" fill="#C9A24E" fill-opacity=".22"/><path d="M12 40 h60" stroke-width="2.2"/><path d="M12 54 h86" stroke-opacity=".55"/></g>
-      </g>
-    </svg>
-    <ol class="steps">
-      <li><h3>On your computer</h3><p>Open a Word file, PDF or scan in Sitiri. Tick the names it finds and add any it missed. Save the covered copy and your key.</p></li>
-      <li><h3>Out for review</h3><p>Send the copy to a colleague, an outside reviewer or an AI tool. They see placeholders such as [Company 1], never the names.</p></li>
-      <li><h3>Back with you</h3><p>Load your key and the reviewed copy. Every name returns, with comments and tracked changes where the reviewer left them.</p></li>
-    </ol>
+    <div class="how-text">
+      <h2>The work travels. <span class="nb">The names stay with you.</span></h2>
+      <p class="intro">Sitiri swaps each name for a placeholder such as <span class="chip">[Company 1]</span> or <span class="chip">[Person 2]</span>, so the person reviewing the document <mark>never sees who it is about</mark>. Your key is what turns the placeholders back into names.</p>
+      <ol class="steps">
+        <li>
+          <h3>On your computer</h3>
+          <p>Open a Word file, a PDF or a scan. Sitiri finds names, addresses and numbers; you tick them and add any it missed. Save the covered copy and your key.</p>
+        </li>
+        <li>
+          <h3>Out for review</h3>
+          <p>Send the copy to a colleague, an outside reviewer or an AI tool. They work on placeholders, never on your client's details.</p>
+        </li>
+        <li>
+          <h3>Back with you</h3>
+          <p>Load your key and the reviewed copy. Every name returns, with comments and tracked changes exactly where the reviewer left them.</p>
+        </li>
+      </ol>
+      <ul class="formats" aria-label="What Sitiri opens">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z M14 3v4h4 M9 12l1.5 5L12 13l1.5 4L15 12"/></svg>Word</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z M14 3v4h4 M9 12h6 M9 15h6 M9 18h4"/></svg>PDF</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v13H4z M12 17a4 4 0 1 0 0-8a4 4 0 0 0 0 8z"/></svg>Scans and photos</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v3H8z M6 5H4v16h16V5h-2 M8 12h8 M8 16h5"/></svg>Pasted text</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <section class="privacy" id="privacy">
+  <p class="watermark wm-word" aria-hidden="true">siri</p>
   <div class="wrap privacy-in">
     <div class="privacy-text">
       <h2>Your documents never leave your computer.</h2>
-      <ul class="facts">
-        <li><strong>No uploads.</strong> Sitiri works inside your browser. There is no server behind it that could receive a file.</li>
-        <li><strong>Works offline.</strong> Open it once and it keeps working with the internet switched off.</li>
-        <li><strong>You keep the key.</strong> The list that links placeholders to names is saved only where you put it.</li>
-      </ul>
+      <p class="intro">There is no server behind Sitiri that could receive a file. It is a page that does its work inside your browser, and it keeps working with the internet switched off.</p>
     </div>
+    <ul class="facts">
+      <li>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 12h28v18H10z M6 34h36 M17 20l5 5 9-9"/></svg>
+        <h3>No uploads</h3>
+        <p>Documents are read and changed on your own machine.</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18a24 24 0 0 1 32 0 M14 24a15 15 0 0 1 20 0 M20 30a6 6 0 0 1 8 0 M24 36h.01 M8 8l32 32"/></svg>
+        <h3>Works offline</h3>
+        <p>Open it once and it runs without the internet.</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 30a8 8 0 1 1 0-1 M26 24h16 M36 24v6 M41 24v4"/></svg>
+        <h3>You keep the key</h3>
+        <p>The list linking placeholders to names is saved only where you put it.</p>
+      </li>
+    </ul>
     <aside class="check">
-      <svg class="check-ring" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="#C9A24E"><circle cx="60" cy="60" r="56" stroke-width="1"/><circle cx="60" cy="60" r="47" stroke-width="3.5" stroke-dasharray="0.1 9" stroke-linecap="round"/><rect x="36" y="44" width="48" height="31" rx="3" stroke-width="1.4"/><path d="M30 80 h60" stroke-width="1.4" stroke-linecap="round"/></g></svg>
       <h3>Check it yourself in a minute</h3>
-      <ol>
-        <li>Open Sitiri, then switch off Wi-Fi.</li>
-        <li>Cover the names in a document. It still works.</li>
-        <li>Or press F12, open the Network tab and watch. Nothing is sent.</li>
-      </ol>
+      <p>Open Sitiri and switch off Wi-Fi: it still works. Or press F12, open the Network tab and watch. Nothing is sent.</p>
     </aside>
   </div>
 </section>
 
 <section class="firms" id="firms">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Set up for your firm</h2>
-      <p>The public tool is free. For a firm or company, Sitiri is fitted to the way you work, and someone is on call when it misses something.</p>
+    <div class="firms-top">
+      <div class="firms-head">
+        <h2>Set up for your firm</h2>
+        <p class="intro">The public tool is free. For a law firm, legal department or company, Sitiri is fitted to the way you work, and someone is on call when it misses something.</p>
+        <a class="button" href="#contact">Talk to us about a setup</a>
+      </div>
+      <div class="firms-photo photo photo-meeting" role="img" aria-label="Three colleagues in a meeting around a table">
+        <span class="photo-trim" aria-hidden="true"></span>
+      </div>
     </div>
-    <dl class="services">
-      <div><dt>Your house list</dt><dd>Your clients, entities, staff and addresses are covered every time, without anyone typing them.</dd></div>
-      <div><dt>Your formats</dt><dd>File references, matter numbers, policy and staff numbers are recognised as yours.</dd></div>
-      <div><dt>A written procedure</dt><dd>When staff may use AI on documents, and how, in a page they will actually read.</dd></div>
-      <div><dt>Training</dt><dd>A session for your team, a one-page guide, and sessions for new joiners after that.</dd></div>
-    </dl>
-    <div class="contact-row">
-      <a class="button brass" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hellositiri@gmail.com&amp;su=Sitiri%20setup" target="_blank" rel="noopener">Email us in Gmail</a>
+    <div class="services">
+      <article class="service">
+        <span class="svc-cloth cloth-dots" aria-hidden="true"></span>
+        <h3>Your house list</h3>
+        <p>Your clients, entities, staff and addresses are covered every time, without anyone typing them.</p>
+      </article>
+      <article class="service">
+        <span class="svc-cloth cloth-teeth" aria-hidden="true"></span>
+        <h3>Your formats</h3>
+        <p>File references, matter numbers, policy and staff numbers are recognised as yours.</p>
+      </article>
+      <article class="service">
+        <span class="svc-cloth cloth-rings" aria-hidden="true"></span>
+        <h3>A written procedure</h3>
+        <p>When staff may use AI on documents, and how, in a page they will actually read.</p>
+      </article>
+      <article class="service">
+        <span class="svc-cloth cloth-stripes" aria-hidden="true"></span>
+        <h3>Training</h3>
+        <p>A session for your team, a one-page guide, and sessions for new joiners after that.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-photo photo photo-sunset" aria-hidden="true"></div>
+  <p class="watermark wm-word wm-light" aria-hidden="true">sitiri</p>
+  <div class="wrap contact-in">
+    <h2>Bring Sitiri to your team.</h2>
+    <p>Tell us what your documents look like and who reviews them. We will suggest a setup and show it working on an invented example.</p>
+    <div class="actions">
+      <a class="button saffron" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hellositiri@gmail.com&amp;su=Sitiri%20setup" target="_blank" rel="noopener">Email us in Gmail</a>
       <button type="button" class="button ghost" id="copy-email">Copy our email address</button>
     </div>
-    <p class="contact" id="copy-note" role="status">Or write from any email account: <b>hellositiri@gmail.com</b></p>
+    <p class="mail" id="copy-note" role="status">Or write from any email account: <b>hellositiri@gmail.com</b></p>
   </div>
 </section>
 
 </main>
 
 <footer class="foot">
-  <div class="dots" aria-hidden="true"></div>
-  <div class="wrap foot-in">
-    <div>
-      <p>Sitiri reduces what you share. It can miss things, so read the preview before you send anything.</p>
-      <p>Sitiri means "to conceal" in Swahili. The lease on this page is invented.</p>
+  <div class="teeth-down" aria-hidden="true"></div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <p class="foot-mark">Sitiri</p>
+      <p>Sitiri means "to conceal" in Swahili.</p>
     </div>
-    <div class="foot-links">
+    <div>
+      <p class="foot-h">Use it</p>
+      <a href="tool.html">Open Sitiri</a>
+      <a href="#how">How it works</a>
+      <a href="#firms">For firms</a>
+    </div>
+    <div>
+      <p class="foot-h">The fine print</p>
       <a href="terms.html">Terms of use</a>
       <a href="terms.html#privacy">Privacy</a>
-      <p>&copy; 2026 Sitiri</p>
+      <p>Sitiri reduces what you share. It can miss things, so read the preview before you send anything.</p>
     </div>
+  </div>
+  <div class="wrap foot-base">
+    <p>&copy; 2026 Sitiri. The lease on this page is invented. Photographs from Unsplash by Jay Omari, Stephen Berenju, Romain Dancre and others.</p>
   </div>
 </footer>
 
@@ -186,15 +249,15 @@
 (function(){
   var root=document.documentElement;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var btn=document.getElementById('demo-toggle'),state=document.getElementById('case-state');
+  var btn=document.getElementById('demo-toggle'),state=document.getElementById('desk-state');
   function set(covered){
     root.classList.toggle('is-open',!covered);
     btn.textContent=covered?'Show the names':'Cover the names';
     btn.setAttribute('aria-pressed',covered?'true':'false');
     state.textContent=covered?'What the reviewer receives':'Your original';
   }
-  // The one moment: the names show briefly, then frosted glass slides over each one.
-  if(reduce){set(true);}else{set(false);root.classList.add('frost-play');setTimeout(function(){set(true);},900);}
+  // The one moment: the names show briefly, then a saffron band covers each one in turn.
+  if(reduce){set(true);}else{set(false);setTimeout(function(){set(true);},1000);}
   btn.addEventListener('click',function(){set(root.classList.contains('is-open'));});
   var cb=document.getElementById('copy-email'),cn=document.getElementById('copy-note');
   cb.addEventListener('click',function(){

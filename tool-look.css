@@ -5,13 +5,13 @@
 body{background:var(--page)}
 
 /* Header: night band with the italic serif wordmark and a brass hairline */
-.top{background:var(--night);color:#F3F6F5}
+.top{background:var(--teal);color:#F6F8F7}
 .top-in{padding-top:16px;padding-bottom:16px}
 .mark{position:relative;font-style:italic;font-weight:600;font-size:38px;letter-spacing:0}
 .mark a{color:#F3F6F5}
-.promise{display:flex;align-items:center;gap:10px;color:#B9C7CA}
+.promise{display:flex;align-items:center;gap:10px;color:#DCE8E6}
 .promise::before{content:"";flex:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--brass);background:radial-gradient(circle,var(--brass) 2.5px,transparent 3px)}
-.ver{color:#93A5AB}
+.ver{color:#CFE0DD}
 .top a{color:#F3F6F5}
 
 /* Step bar in place of the tab buttons */
@@ -22,12 +22,12 @@ main{padding-top:34px}
 .tabs button.on{background:var(--ink);color:var(--paper)}
 .tabs button.on::before{content:"";display:inline-block;width:7px;height:7px;margin-right:12px;border-radius:50%;background:var(--brass);vertical-align:2px}
 #tab-help{flex:0 1 auto;text-align:center}
-@media (prefers-color-scheme:dark){.tabs button.on{background:var(--brass);color:var(--night)}.tabs button.on::before{background:var(--night)}}
+@media (prefers-color-scheme:dark){.tabs button.on{background:var(--saffron);color:var(--ink)}.tabs button.on::before{background:var(--ink)}.step{background:var(--saffron);color:var(--ink)}}
 
 /* Cards: paper, not boxes */
 .card{position:relative;border:0;border-radius:4px;padding:28px 30px 26px 30px;margin-bottom:20px;box-shadow:var(--paper-shadow)}
 .card h2{display:flex;align-items:center;gap:14px;font-size:27px;font-weight:500;letter-spacing:0}
-.step{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;min-width:0;margin:0;border-radius:50%;background:transparent;border:1px solid var(--brass);color:var(--text);font-family:var(--display);font-style:italic;font-size:21px;font-weight:600;vertical-align:middle}
+.step{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;min-width:0;margin:0;border-radius:50%;background:var(--ink);border:0;color:var(--saffron);font-family:var(--display);font-style:italic;font-size:21px;font-weight:600;vertical-align:middle}
 
 button.btn{min-height:48px;padding:0 20px;font-size:17px}
 button.btn.alt{border-width:2px;border-color:var(--rule)}

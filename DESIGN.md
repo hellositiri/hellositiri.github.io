@@ -1,43 +1,46 @@
-# Sitiri design system (1.8: executive night)
+# Sitiri design system (1.8: the kanga meets the counsel's office)
 
-The look is a kanga rendered as fine brass engraving on a night ground, with frosted glass used for one job: covering names. The kanga stays as composition (border, central motif, message band); the glass stays as meaning (privacy glass), never as decoration.
+A professional-services site with real Nairobi photography and an elegant serif, carried by the kanga: its colours, its border patterns, its central rings and its message band. Saffron is the band that covers names.
 
 ## Colour
 | Token | Hex | Role |
 |---|---|---|
-| night | #0C1624 | front page ground, headers, footers |
-| lift | #101E31 | alternate front-page sections |
-| glow | #123C3D | the teal light behind the hero and privacy sections |
-| brass | #C9A24E | primary buttons, engraving, pindo dots, numerals, focus ring; one accent per view |
-| text-hi | #F3F6F5 | headings and strong text on night |
-| text-mid | #B9C7CA | body text on night |
-| text-low | #93A5AB | notes and captions on night |
-| sheet | #FFFFFF | documents |
-| ink | #13233A | text and buttons on light pages (tool, terms) |
-| teal | #0B4F4B | accent on light pages |
+| paper | #F6F8F7 | main page ground |
+| stone | #ECF0EE | alternate light sections |
+| teal | #0B4F4B | hero tint, privacy section, brand surfaces |
+| teal-deep | #083B38 | hero ground under the photo |
+| ink | #13233A | headings, buttons, contact section, footer, the band behind placeholders |
+| saffron | #F4B62A | primary buttons, kanga patterns, placeholder text on ink, highlighter |
+| ochre | #8C6400 | step numerals and other saffron-family accents on light grounds |
 
-Brass sits on night or behind night text. Never brass text on white. The front page is dark in every colour scheme; the tool and terms pages follow the visitor's light or dark setting.
+Saffron on ink is the redaction pair. Never saffron text on paper; use ochre.
 
 ## Type
-- Bodoni Moda (variable, with optical size) for display: the italic wordmark at 600, headings at 500 to 600, numerals and service names in italic.
-- Atkinson Hyperlegible 400/700 for all running text, buttons, forms and tables.
-- Front page scale: 18 body, 19.5 lead, 24 h3, 34 to 54 h2, hero 44 to 74. Headings use `text-wrap: balance` and break between phrases.
+- Bodoni Moda (variable, optical size) for headings at 500 to 600, the italic wordmark, the proverb and the step numerals.
+- Atkinson Hyperlegible 400/700 for running text, buttons and forms.
+- Intros at 20.5px; body 18px; headings break between phrases.
 
-## Glass
-- Panes: rgba(255,255,255,.055) with backdrop blur 14 to 16px, a 1px inner edge and a top highlight. Used for the navigation bar, the case that holds the demo document, and the "check it yourself" panel. Nothing else.
-- Frost strips: the names in the demo sit under white frosted strips (blur 5px) carrying the placeholder label in ink. Without backdrop-filter support the panes turn solid.
+## Photography
+- Free Unsplash photographs, stored in /img and credited in the footer: Nairobi skyline (Jay Omari), Nairobi sunset (Stephen Berenju), signing (Romain Dancre), meeting (Christina, wocintechchat.com).
+- The hero skyline is turned grey and tinted teal under a left-to-right gradient so the text stays legible. The sunset sits to the right of the contact text.
+- Photo frames carry a strip of kanga teeth along the bottom.
+- Billboards and poster lettering are cropped or softened out.
 
-## Shape and depth
-- Radius 4px on buttons, 8 to 10px on glass panes, 2px on paper.
-- Shadows are long and soft: 0 60px 90px -40px rgba(0,0,0,.85) under glass.
-- Lines are 1px: white at 10% between sections, brass at 45% above steps and services.
+## Kanga devices
+- Pindo dots (saffron on ink) along the top of the page and above the privacy section; kanga teeth above the message band and the footer.
+- The medallion rings: saffron over the hero, teal as a faint watermark behind "How it works".
+- Large faint italic words as watermarks: "siri" behind privacy, "sitiri" behind contact.
+- The message band: "Siri ya mtungi aijuaye kata" with its translation, on white, right under the hero.
+- Service cards are topped with four different kanga patterns.
+
+## Inline devices in body text
+- Placeholder chips (saffron on ink) where the text mentions [Company 1] and the like.
+- A saffron highlighter stroke on the one phrase that matters in a paragraph.
 
 ## Motion
-- One moment: on load the names show for a beat, then frosted glass slides over each one in turn. A link under the case toggles it afterwards.
-- prefers-reduced-motion shows the covered state at once.
+One moment: on load the names in the sample lease show for a second, then saffron-on-ink bands sweep over them in turn. A link under the lease toggles it afterwards. Reduced motion shows the covered state at once.
 
 ## Rules
-- Numbers only for real sequences (the three steps, the check steps).
-- No all-caps except the kanga message band.
-- No eyebrow labels, no same-size icon cards, no gradient text.
-- Fonts, images and scripts are stored with the site. Nothing loads from elsewhere.
+- Numbers only for real sequences.
+- No all-caps labels, no eyebrows, no gradient text.
+- Fonts, photos and scripts are stored with the site. Nothing loads from elsewhere.
