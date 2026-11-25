@@ -1,6 +1,6 @@
 // Sitiri offline support. Keeps a copy of the site on this computer so it opens without internet.
 // It only ever handles the site's own files. Documents you load into Sitiri never pass through here.
-const VERSION = 'sitiri-1.8.3';
+const VERSION = 'sitiri-1.8.4';
 const FILES = [
   './', 'index.html', 'tool.html', 'terms.html', 'sitiri.css', 'front.css', 'img/hero.jpg', 'img/signing.jpg', 'img/meeting.jpg', 'img/sunset.jpg', 'tool-look.css', 'convert.js', 'names.js', 'words.js', 'manifest.webmanifest', 'LICENSES.txt',
   'icons/icon-64.png', 'icons/icon-192.png', 'icons/icon-512.png',

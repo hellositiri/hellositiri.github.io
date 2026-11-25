@@ -70,10 +70,6 @@
 
     <figure class="desk" aria-label="An invented lease with the names covered">
       <div class="paper">
-        <div class="views" role="group" aria-label="Which copy to show">
-          <button type="button" class="view" id="view-covered" aria-pressed="true"><span class="view-swatch" aria-hidden="true"></span>Reviewer's copy</button>
-          <button type="button" class="view" id="view-original" aria-pressed="false"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Your original</button>
-        </div>
         <article class="sheet">
           <p class="sheet-title">Lease of commercial premises</p>
           <p>THIS LEASE is made on 3rd March 2026 between <span class="term">Baraka Estates Limited<span class="band">[Company 1]</span></span> of <span class="term">P.O. Box 1234-00100<span class="band">[Address 1]</span></span>, Nairobi (the Lessor) and <span class="term">Amani Wanjiku<span class="band">[Person 1]</span></span> (the Lessee).</p>
@@ -88,6 +84,11 @@
           </svg>
         </article>
       </div>
+      <div class="switch" id="switch" role="group" aria-label="Which copy to show">
+        <button type="button" class="sw-opt" id="view-original" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Your original</button>
+        <button type="button" class="sw-opt" id="view-covered" aria-pressed="true"><span class="sw-swatch" aria-hidden="true"></span>Reviewer's copy</button>
+      </div>
+      <p class="sw-hint">Switch between the two copies to see what Sitiri hides.</p>
     </figure>
   </div>
 </header>
@@ -257,9 +258,11 @@
     bo.setAttribute('aria-pressed',covered?'false':'true');
   }
   // The one moment: the original shows briefly, then a saffron band covers each name in turn.
-  if(reduce){set(true);}else{set(false);setTimeout(function(){set(true);},1000);}
-  bc.addEventListener('click',function(){set(true);});
-  bo.addEventListener('click',function(){set(false);});
+  var sw=document.getElementById('switch');
+  if(reduce){set(true);}else{set(false);setTimeout(function(){set(true);setTimeout(function(){sw.classList.add('nudge');},900);},1000);}
+  sw.addEventListener('animationend',function(){sw.classList.remove('nudge');});
+  bc.addEventListener('click',function(){set(true);sw.classList.remove('nudge');});
+  bo.addEventListener('click',function(){set(false);sw.classList.remove('nudge');});
   var cb=document.getElementById('copy-email'),cn=document.getElementById('copy-note');
   cb.addEventListener('click',function(){
     var addr='hellositiri@gmail.com';
