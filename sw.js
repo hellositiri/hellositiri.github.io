@@ -1,11 +1,11 @@
 // Sitiri offline support. Keeps a copy of the site on this computer so it opens without internet.
 // It only ever handles the site's own files. Documents you load into Sitiri never pass through here.
-const VERSION = 'sitiri-1.8.0';
+const VERSION = 'sitiri-1.8.1';
 const FILES = [
   './', 'index.html', 'tool.html', 'terms.html', 'sitiri.css', 'front.css', 'tool-look.css', 'convert.js', 'names.js', 'words.js', 'manifest.webmanifest', 'LICENSES.txt',
   'icons/icon-64.png', 'icons/icon-192.png', 'icons/icon-512.png',
   'fonts/atkinson-hyperlegible-latin-400-normal.woff2', 'fonts/atkinson-hyperlegible-latin-400-italic.woff2',
-  'fonts/atkinson-hyperlegible-latin-700-normal.woff2', 'fonts/bricolage-grotesque-latin-wght-normal.woff2',
+  'fonts/atkinson-hyperlegible-latin-700-normal.woff2', 'fonts/bricolage-grotesque-latin-wght-normal.woff2', 'fonts/bodoni-moda-latin-opsz-normal.woff2', 'fonts/bodoni-moda-latin-wght-italic.woff2',
   'vendor/pdfjs/pdf.min.mjs', 'vendor/pdfjs/pdf.worker.min.mjs'
 ];
 // The scan reader is larger, so it is fetched in the background once the tool has been opened.

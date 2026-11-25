@@ -1,34 +1,43 @@
-# Sitiri design system
+# Sitiri design system (1.8: executive night)
 
-The look is a kanga: a bordered cloth with a central motif and a message band. It is used as composition, not as trim.
+The look is a kanga rendered as fine brass engraving on a night ground, with frosted glass used for one job: covering names. The kanga stays as composition (border, central motif, message band); the glass stays as meaning (privacy glass), never as decoration.
 
-## Color
+## Colour
 | Token | Hex | Role |
 |---|---|---|
-| ink | #13233A | text, dark sections, kanga border ground |
-| teal | #0B4F4B | brand field, primary surfaces |
-| saffron | #F4B62A | the band that covers names; one accent per view |
-| paper | #F6F8F7 | page ground |
+| night | #0C1624 | front page ground, headers, footers |
+| lift | #101E31 | alternate front-page sections |
+| glow | #123C3D | the teal light behind the hero and privacy sections |
+| brass | #C9A24E | primary buttons, engraving, pindo dots, numerals, focus ring; one accent per view |
+| text-hi | #F3F6F5 | headings and strong text on night |
+| text-mid | #B9C7CA | body text on night |
+| text-low | #93A5AB | notes and captions on night |
 | sheet | #FFFFFF | documents |
-| manila | #E3C68C | file covers behind documents |
-| rule | #C3D0D6 | hairlines, quiet borders |
+| ink | #13233A | text and buttons on light pages (tool, terms) |
+| teal | #0B4F4B | accent on light pages |
 
-Saffron on ink and ink on saffron are the redaction pair. Never put saffron text on paper.
+Brass sits on night or behind night text. Never brass text on white. The front page is dark in every colour scheme; the tool and terms pages follow the visitor's light or dark setting.
 
 ## Type
-- Bricolage Grotesque (variable 200 to 800): the wordmark at 800, headings at 600 to 700, large statements at 300.
-- Atkinson Hyperlegible 400/700: all running text, forms and tables.
-- Scale: 18 body, 22 lead, 28 h3, 40 h2, 56 to 72 statement, wordmark clamp(96px, 20vw, 260px).
+- Bodoni Moda (variable, with optical size) for display: the italic wordmark at 600, headings at 500 to 600, numerals and service names in italic.
+- Atkinson Hyperlegible 400/700 for all running text, buttons, forms and tables.
+- Front page scale: 18 body, 19.5 lead, 24 h3, 34 to 54 h2, hero 44 to 74. Headings use `text-wrap: balance` and break between phrases.
+
+## Glass
+- Panes: rgba(255,255,255,.055) with backdrop blur 14 to 16px, a 1px inner edge and a top highlight. Used for the navigation bar, the case that holds the demo document, and the "check it yourself" panel. Nothing else.
+- Frost strips: the names in the demo sit under white frosted strips (blur 5px) carrying the placeholder label in ink. Without backdrop-filter support the panes turn solid.
 
 ## Shape and depth
-- Radius 4px on controls, 2px on paper. Documents get a real paper shadow: 0 1px 0 #B9C2BF, 0 24px 48px -28px rgba(19,35,58,.45).
-- Borders are 2px ink for controls the user acts on, 1px rule elsewhere.
+- Radius 4px on buttons, 8 to 10px on glass panes, 2px on paper.
+- Shadows are long and soft: 0 60px 90px -40px rgba(0,0,0,.85) under glass.
+- Lines are 1px: white at 10% between sections, brass at 45% above steps and services.
 
 ## Motion
-- One orchestrated moment per page: on the front page the band sweeps across the wordmark once and lifts off. The demo document runs once when it scrolls into view and then waits for the button.
-- Everything respects prefers-reduced-motion.
+- One moment: on load the names show for a beat, then frosted glass slides over each one in turn. A link under the case toggles it afterwards.
+- prefers-reduced-motion shows the covered state at once.
 
 ## Rules
-- Numbers only for real sequences.
-- No all-caps labels except the kanga message band, which is how a kanga is printed.
+- Numbers only for real sequences (the three steps, the check steps).
+- No all-caps except the kanga message band.
+- No eyebrow labels, no same-size icon cards, no gradient text.
 - Fonts, images and scripts are stored with the site. Nothing loads from elsewhere.
